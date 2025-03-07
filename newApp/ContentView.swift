@@ -66,7 +66,7 @@ struct SignUpView: View {
     @State private var confirmPassword: String = ""
     @State private var gender: String = "Male"
     
-    let genders = ["Male", "Female", "Otherz"]
+    let genders = ["Male", "Female", "Other"]
     var body: some View {
         VStack(spacing: 20) {
             Text("Sign Up").font(.largeTitle).navigationTitle(Text("Sign up")) .padding(.bottom, 20)
