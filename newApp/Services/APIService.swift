@@ -12,7 +12,7 @@ class APIService {
     private let baseURL = "http://localhost:3000"
     
     func signUp(email: String, password: String, username: String, gender: String, role: String, completion: @escaping (Result<Int64, Error>) -> Void) {
-        let url = URL(string: "\(baseURL)/signup")!
+        let url = URL(string: "\(baseURL)/api/signup")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -26,14 +26,20 @@ class APIService {
         ]
         
         request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+        print("Sending Sign-Up Request: \(body)")
         URLSession.shared.dataTask(with: request) { data, response, error in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("HTTP Status Code: \(httpResponse.statusCode)")
+            }
             if let error = error {
+                print("Sign-Up Response Error: \(error)")
                 completion(.failure(error))
                 return
             }
             
             if let data = data {
                 if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+                    print("Sign-Up Response: \(json)")
                     if let userId = json["userId"] as? Int64 {
                         completion(.success(userId))
                     } else {
@@ -46,7 +52,7 @@ class APIService {
         
         
     func login(email: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {
-        let url = URL(string: "\(baseURL)/login")!
+        let url = URL(string: "\(baseURL)/api/login")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

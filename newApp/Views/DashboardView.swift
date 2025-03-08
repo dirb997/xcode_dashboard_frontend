@@ -2,6 +2,9 @@ import SwiftUI
 
 struct DashboardView: View {
     let user: User
+    @State private var isLoggingOut = false
+    @State private var showLogoutProcess = false
+    @Environment(\.dismiss) private var dismiss
     var body: some View {
         VStack {
             Text("Welcome, \(user.username)")
@@ -18,7 +21,15 @@ struct DashboardView: View {
             Spacer()
             
             Button(action: {
-                print("Logging out")
+                showLogoutProcess = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    // Clear any user data/tokens if needed
+                    // UserDefaults.standard.removeObject(forKey: "userToken")
+                    
+                    showLogoutProcess = false
+                    dismiss() // This will pop the current view
+                }
+
             }) {
                 Text("Logout")
                     .frame(maxWidth: .infinity)

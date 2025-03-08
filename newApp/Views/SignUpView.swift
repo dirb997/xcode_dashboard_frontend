@@ -15,6 +15,7 @@ struct SignUpView: View {
     @State private var showError: Bool = false
     @State private var errorMessage: String = ""
     @State private var role: String = "Basic"
+    @State private var isSignedUp = false
     
     let genders = ["Male", "Female", "Other"]
     
@@ -91,6 +92,9 @@ struct SignUpView: View {
             .padding(.horizontal)
         }
         .navigationTitle("Sign up")
+        .navigationDestination(isPresented: $isSignedUp) {
+            ContentView()
+        }
         .alert("Error", isPresented: $showError) {
             Button("OK", role: .cancel) { }
         } message: {
@@ -119,10 +123,12 @@ struct SignUpView: View {
             switch result {
             case .success(let userId):
                 print("Successfully signed up successfully with ID: \(userId)")
+                self.isSignedUp = true
             case .failure(let error):
-                errorMessage = error.localizedDescription
+                print("Sign Up Failed: \(error.localizedDescription)")
                 showError = true
             }
         }
     }
 }
+
