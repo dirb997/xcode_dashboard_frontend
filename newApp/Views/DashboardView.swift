@@ -21,13 +21,11 @@ struct DashboardView: View {
             Spacer()
             
             Button(action: {
-                showLogoutProcess = true
+                showLogoutProcess = false
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    // Clear any user data/tokens if needed
-                    // UserDefaults.standard.removeObject(forKey: "userToken")
-                    
-                    showLogoutProcess = false
-                    dismiss() // This will pop the current view
+                    UserDefaults.standard.removeObject(forKey: "userToken")
+                    showLogoutProcess = true
+                    dismiss()
                 }
 
             }) {

@@ -24,10 +24,12 @@ struct LoginView: View {
             
             TextField("Email", text: $email)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
+                .autocapitalization(.none)
                 .padding(.horizontal)
             
             SecureField("Password", text: $password)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
+                .autocapitalization(.none) 
                 .padding(.horizontal)
             
             Button(action: {

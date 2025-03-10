@@ -29,14 +29,17 @@ struct SignUpView: View {
             
             TextField("Email", text: $email)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
+                .autocapitalization(.none)
                 .padding(.horizontal)
             
             SecureField("Password", text: $password)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
+                .autocapitalization(.none)
                 .padding(.horizontal)
             
             TextField("Username", text: $username)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
+                .autocapitalization(.none) 
                 .padding(.horizontal)
             
             VStack(alignment: .leading, spacing: 10) {
