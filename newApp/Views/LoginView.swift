@@ -13,6 +13,7 @@ struct LoginView: View {
     @State private var password: String = ""
     @State private var showError: Bool = false
     @State private var errorMessage: String = ""
+    @State private var rememberUser: Bool = false
     @State private var isLoggedIn: Bool = false
     @State private var loggedInUser: User? = nil
     
@@ -31,6 +32,20 @@ struct LoginView: View {
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .autocapitalization(.none) 
                 .padding(.horizontal)
+            
+            Button(action: {
+                rememberUser.toggle()
+            }) {
+                HStack {
+                    Image(systemName: rememberUser ? "checkmark.square.fill" : "square")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .foregroundColor(rememberUser ? .blue : .gray)
+                    
+                    Text("Remember Me")
+                }
+            }
+            .padding()
             
             Button(action: {
                 login()

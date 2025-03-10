@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct SignUpView: View {
     @State private var email: String = ""
@@ -16,17 +17,41 @@ struct SignUpView: View {
     @State private var errorMessage: String = ""
     @State private var role: String = "Basic"
     @State private var isSignedUp = false
+    @State private var profileImage: UIImage? = nil
+    @State private var showImagePicker: Bool = false
     
     let genders = ["Male", "Female", "Other"]
     
-    let roles = ["Basic", "Premium", "Admin"]
+    let roles = ["Admin", "Basic", "Prmeium"]
     
     var body: some View {
         VStack {
-            Text("Sign Up")
-                .font(.largeTitle)
-                .padding(.bottom, 20)
+            VStack {
+                if let profileImage = profileImage {
+                    Image(uiImage: profileImage)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 120, height: 120)
+                        .clipShape(Circle())
+                        .overlay(Circle().stroke(Color.blue, lineWidth: 2))
+                } else {
+                    Image(systemName: "person.circle.fill")
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 120, height: 120)
+                        .foregroundColor(.gray)
+                        .overlay(Circle().stroke(Color.blue, lineWidth: 2))
+                }
+                
+                Button("Select Photo") {
+                    showImagePicker = true
+                }
+                .padding(.top, 8)
+            }
+            .padding(.bottom, 20)
+        }
             
+        VStack {            
             TextField("Email", text: $email)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .autocapitalization(.none)
@@ -42,41 +67,55 @@ struct SignUpView: View {
                 .autocapitalization(.none) 
                 .padding(.horizontal)
             
-            VStack(alignment: .leading, spacing: 10) {
-                Text("Gender")
-                    .font(.headline)
+            VStack(spacing: 10) {
+                HStack {
+                    Text("Gender:")
+                        .font(.headline)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Text("Role:")
+                        .font(.headline)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .padding(.horizontal)
                 
-                ForEach(genders, id: \.self) { option in
+                ForEach(0..<max(genders.count, roles.count), id: \.self) { index in
                     HStack {
-                        Image(systemName: gender == option ? "largecircle.fill.circle" : "circle")
-                            .foregroundColor(gender == option ? .blue : .gray)
-                        Text(option)
-                            .foregroundColor(.primary)
+                        if index < genders.count {
+                            HStack {
+                                Image(systemName: gender == genders[index] ? "largecircle.fill.circle" : "circle")
+                                    .foregroundColor(gender == genders[index] ? .blue : .gray)
+                                Text(genders[index])
+                                    .foregroundColor(.primary)
+                            }
+                            .onTapGesture {
+                                gender = genders[index]
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        } else {
+                            Spacer()
+                                .frame(maxWidth: .infinity)
+                        }
+                        
+                        if index < roles.count {
+                            HStack {
+                                Image(systemName: role == roles[index] ? "largecircle.fill.circle" : "circle")
+                                    .foregroundColor(role == roles[index] ? .blue : .gray)
+                                Text(roles[index])
+                                    .foregroundColor(.primary)
+                            }
+                            .onTapGesture {
+                                role = roles[index]
+                            }
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        } else {
+                            Spacer()
+                                .frame(maxWidth: .infinity)
+                        }
                     }
-                    .onTapGesture {
-                        gender = option
-                    }
+                    .padding(.horizontal)
                 }
             }
-            .padding(.horizontal)
-            
-            VStack(alignment: .leading, spacing: 10) {
-                Text("Role")
-                    .font(.headline)
-                
-                ForEach(roles, id: \.self) { option in
-                    HStack {
-                        Image(systemName: role == option ? "largecircle.fill.circle" : "circle")
-                            .foregroundColor(role == option ? .blue : .gray)
-                        Text(option)
-                            .foregroundColor(.primary)
-                    }
-                    .onTapGesture {
-                        role = option
-                    }
-                }
-            }
-            .padding(.horizontal)
             
             Button(action: {
                 if validateInputs() {
