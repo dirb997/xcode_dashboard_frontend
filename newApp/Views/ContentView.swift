@@ -18,13 +18,13 @@ struct ContentView: View {
                     NavigationLink {
                         LoginView()
                     } label: {
-                        Image("Login-PNG").resizable().scaledToFit().frame(width: 100, height: 100)
+                        Image("button_login").resizable().scaledToFit().frame(width: 100, height: 100)
                     }
                     
                     NavigationLink {
                         SignUpView()
                     } label: {
-                        Image("SingIn-JPG")
+                        Image("button_sign-up")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 100, height: 100)

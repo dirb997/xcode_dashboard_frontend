@@ -9,8 +9,7 @@ import Foundation
 
 class APIService {
     static let shared = APIService()
-    private let baseURL = "http://localhost:3000"
-//        private let baseURL = "http://192.168.0.30:3000" - URL Used for testing on a real iphone device
+    private let baseURL = "http://192.168.0.30:3000"//        private let baseURL = "http://192.168.0.30:3000" - URL Used for testing on a real iphone device
 
     
     func signUp(email: String, password: String, username: String, gender: String, role: String, completion: @escaping (Result<Int64, Error>) -> Void) {
@@ -53,14 +52,14 @@ class APIService {
     }
         
         
-    func login(email: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {
+    func login(username: String, password: String, completion: @escaping (Result<User, Error>) -> Void) {
         let url = URL(string: "\(baseURL)/api/login")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         let body: [String: Any] = [
-            "email": email,
+            "username": username,
             "password": password
         ]
         

@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct LoginView: View {
-    @State private var email: String = ""
+    @State private var username: String = ""
     @State private var password: String = ""
     @State private var showError: Bool = false
     @State private var errorMessage: String = ""
@@ -23,7 +23,7 @@ struct LoginView: View {
                 .font(.largeTitle)
                 .padding(.bottom, 20)
             
-            TextField("Email", text: $email)
+            TextField("Username", text: $username)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .autocapitalization(.none)
                 .padding(.horizontal)
@@ -73,7 +73,7 @@ struct LoginView: View {
     }
     
     private func login() {
-        APIService.shared.login(email: email, password: password) { result in
+        APIService.shared.login(username: username, password: password) { result in
             switch result {
             case .success(let user):
                 loggedInUser = user
