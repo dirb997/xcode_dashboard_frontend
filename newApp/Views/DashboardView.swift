@@ -9,6 +9,22 @@ struct DashboardView: View {
     
     var body: some View {
         VStack {
+            if let profileImage = user.profilePicture {
+                Image(uiImage: profileImage)
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 120, height: 120)
+                    .clipShape(Circle())
+                    .overlay(Circle().stroke(Color.blue, lineWidth: 2))
+            } else {
+                Image(systemName: "person.circle.fill")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 120, height: 120)
+                    .foregroundColor(.gray)
+                    .overlay(Circle().stroke(Color.blue, lineWidth: 2))
+            }
+            
             Text("Welcome, \(user.username)")
                 .font(.largeTitle)
                 .padding(.bottom, 20)

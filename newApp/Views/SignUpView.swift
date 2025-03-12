@@ -1,10 +1,3 @@
-//
-//  SignUpView.swift
-//  newApp
-//
-//  Created by Diego Berlanga on 2025/03/07.
-//
-
 import SwiftUI
 import PhotosUI
 
@@ -164,6 +157,12 @@ struct SignUpView: View {
     }
     
     private func signUp() {
+        guard let profileImage = profileImage else {
+            print("No profile image selected")
+            return
+        }
+        
+        saveImageToUserDefaults(image: profileImage, key: "profileImage_\(username)")
         APIService.shared.signUp(email: email, password: password, username: username, gender: gender, role: role) { result in
             switch result {
             case .success(let userId):
@@ -210,4 +209,16 @@ struct ImagePicker: UIViewControllerRepresentable {
             parent.presentationMode.wrappedValue.dismiss()
         }
     }
+}
+
+func saveImageToUserDefaults(image: UIImage, key: String) {
+    guard let imageData = image.jpegData(compressionQuality: 0.8) else { return }
+    UserDefaults.standard.set(imageData, forKey: key)
+}
+
+func loadImageFromUserDefaults(key: String) -> UIImage? {
+    if let imageData = UserDefaults.standard.data(forKey: key) {
+        return UIImage(data: imageData)
+    }
+    return nil
 }

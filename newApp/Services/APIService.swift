@@ -1,15 +1,9 @@
-//
-//  APIService.swift
-//  newApp
-//
-//  Created by Diego Berlanga on 2025/03/07.
-//
-
 import Foundation
 
 class APIService {
     static let shared = APIService()
-    private let baseURL = "http://192.168.0.30:3000"//        private let baseURL = "http://192.168.0.30:3000" - URL Used for testing on a real iphone device
+    private let baseURL = "http://localhost:3000"
+//    private let baseURL = "http://192.168.0.30:3000"
 
     
     func signUp(email: String, password: String, username: String, gender: String, role: String, completion: @escaping (Result<Int64, Error>) -> Void) {

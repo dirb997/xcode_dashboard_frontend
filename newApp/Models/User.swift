@@ -1,11 +1,5 @@
-//
-//  User.swift
-//  newApp
-//
-//  Created by Diego Berlanga on 2025/03/07.
-//
-
 import Foundation
+import UIKit
 
 struct User: Codable {
     let id: Int
@@ -14,4 +8,8 @@ struct User: Codable {
     let username: String
     let gender: String
     let role: String
+    
+    var profilePicture: UIImage? {
+        return loadImageFromUserDefaults(key: "profileImage_\(username)")
+    }
 }

@@ -1,7 +1,4 @@
 //
-//  newAppApp.swift
-//  newApp
-//
 //  Created by Diego Berlanga on 2025/03/03.
 //
 
