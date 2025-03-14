@@ -12,6 +12,8 @@ struct DashboardView: View {
     @State private var showSettings: Bool = false
     @State private var invitations: [User] = []
     @State private var showManageUsers: Bool = false
+    @State private var isDeletingAccount: Bool = false
+    
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -138,7 +140,7 @@ struct DashboardView: View {
             .alert("Delete Account", isPresented: $showDeleteConfirmation) {
                 Button("Cancel", role: .cancel) { }
                 Button("Delete", role: .destructive) {
-                    // Add delete account logic here
+                    deleteAccount()
                 }
             } message: {
                 Text("Are you sure you want to delete your account? This action cannot be undone.")
@@ -151,6 +153,21 @@ struct DashboardView: View {
             }
             .sheet(isPresented: $showManageUsers) {
                 Text("Manage Users View")
+            }
+        }
+    }
+    
+    private func deleteAccount() {
+        isDeletingAccount = true
+        APIService.shared.deleteAccount(userId: user.id) { result in
+            isDeletingAccount = false
+            
+            switch result {
+            case .success:
+                UserDefaults.standard.removeObject(forKey: "userToken")
+                dismiss()
+            case .failure(let error):
+                print("Error deleting account: \(error)")
             }
         }
     }
