@@ -10,7 +10,7 @@
   <tr>
     <td><img src="https://github.com/user-attachments/assets/ca58fc2f-648b-4c39-b24f-a2344e59af2d" width="250" alt="Front Page"></td>
     <td><img src="https://github.com/user-attachments/assets/458920b4-f102-41f4-aba5-b2f2616ff0cb" width="250" alt="Sign Up Page"></td>
-    <td><img src="https://github.com/user-attachments/assets/a23eeb03-2763-4398-8dab-4188567edcf1" width="250" alt="Dashboard"></td>
+    <td><img src="https://github.com/user-attachments/assets/c0d56c98-2907-49da-bdb9-f3c907d3bb2f" width="250" alt="Dashboard"></td>
   </tr>
   <tr>
     <td>Front Page</td>
